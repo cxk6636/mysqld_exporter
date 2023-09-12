@@ -3,6 +3,7 @@ module github.com/prometheus/mysqld_exporter
 require (
 	github.com/DATA-DOG/go-sqlmock v1.5.0
 	github.com/go-kit/kit v0.10.0
+	github.com/go-kit/log v0.2.1
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/prometheus/client_golang v1.10.0
 	github.com/prometheus/client_model v0.2.0
