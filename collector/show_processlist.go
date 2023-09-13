@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-const showProcesslistQuery = "SHOW PROCESSLIST"
+const showProcesslistQuery = "SHOW FULL PROCESSLIST"
 const totalName = "total"
 const activeName = "active"
 
@@ -39,7 +39,7 @@ func (ScrapShowProcesslist) Scrape(ctx context.Context, dbcon *sql.DB, ch chan<-
 	}
 	defer queryContext.Close()
 
-	var Id, Time int64
+	var Id, Time, Time_ms, Rows_sent, Rows_examined int64
 	var User, Host, db, Command string
 	var Info sql.NullString
 
@@ -52,7 +52,7 @@ func (ScrapShowProcesslist) Scrape(ctx context.Context, dbcon *sql.DB, ch chan<-
 
 	for queryContext.Next() {
 		var dbt, state sql.NullString
-		err := queryContext.Scan(&Id, &User, &Host, &dbt, &Command, &Time, &state, &Info)
+		err := queryContext.Scan(&Id, &User, &Host, &dbt, &Command, &Time, &state, &Info, &Time_ms, &Rows_sent, &Rows_examined)
 		if err != nil {
 			return err
 		}
